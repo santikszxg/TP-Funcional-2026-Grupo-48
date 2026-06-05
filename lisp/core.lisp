@@ -44,4 +44,13 @@
 (defun auditoria(color-anterior color-nuevo)
 			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" (-(get-universal-time)2208988800) color-anterior color-nuevo))
 
+;Requerimiento 5: Planificación Temporal;
+;; ========================================================
+;; FUNCIÓN: timer
+;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
+;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; IMPACTO: No destructiva
+;; ========================================================
+(defun ciclos-por-tiempo(duracionMinutos)
+			(format t "La cantidad de ciclos es: ~A%" (truncate(/ (* 60 duracionMinutos) 216))))
 
