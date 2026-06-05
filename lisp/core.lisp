@@ -33,4 +33,15 @@
 				((< (mod tiempo_unix 216) 96) 'amarillo)
 				(t 'verde)))
 
+;Requerimiento 3: Temporizador Automático;
+;; ========================================================
+;; FUNCIÓN: timer
+;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
+;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; IMPACTO: No destructiva
+;; ========================================================
+
+(defun auditoria(color-anterior color-nuevo)
+			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" (-(get-universal-time)2208988800) color-anterior color-nuevo))
+
 
