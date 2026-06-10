@@ -106,6 +106,8 @@ TRANSICION
 Break 1 [3]> (transicion 'en-rojo 'verde)
 
 ACCION-POR-DEFECTO |#
+
+
 (defun transicion (color-actual cambiar-a)
 				(cond  ((not(or(and (equalp color-actual 'en-rojo)(equalp cambiar-a 'amarillo))
 						(and (equalp color-actual 'en-amarillo)(equalp cambiar-a 'verde))
@@ -116,6 +118,8 @@ ACCION-POR-DEFECTO |#
 						((equalp cambiar-a 'amarillo)(list color-actual "cambiar-a-amarillo"))
 						((equalp cambiar-a 'verde)(list color-actual "cambiar-a-verde"))
 						(t (list color-actual 'accion-por-defecto))))
+
+
 #|
 TRANSICION
 Break 2 [4]> (transicion 'en-rojo 'verde)
