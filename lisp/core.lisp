@@ -261,7 +261,9 @@ Break 1 [3]> (ciclos-por-tiempo 120)
 La cantidad de ciclos es: 33
 NIL
 Break 1 [3]> 
-|#
+|# 
+
+
 (defun ciclos-por-tiempo(duracionMinutos)
 			(format t "La cantidad de ciclos es: ~A%" (truncate(/ (* 60 duracionMinutos) 216))))
 
