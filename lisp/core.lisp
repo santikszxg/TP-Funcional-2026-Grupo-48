@@ -146,7 +146,7 @@ Aseguramiento de calidad
 ;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
 ;; IMPACTO: No destructiva
 ;; ========================================================
-#| Break 1 [3]> (defun timer(tiempo_unix)
+ Break 1 [3]> (defun timer(tiempo_unix)
 				(cond
 				((> (mod tiempo_unix 216) 90) 'rojo)
 				((< (mod tiempo_unix 216) 96) 'amarillo)
@@ -216,7 +216,7 @@ Aseguramiento de calidad|#
 ;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
 ;; IMPACTO: No destructiva
 ;; ========================================================
-#| (defun auditoria(tiempo-unix color-anterior color-nuevo)
+ (defun auditoria(tiempo-unix color-anterior color-nuevo)
 			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" tiempo-unix color-anterior color-nuevo))
 
 (defun auditoria(color-anterior color-nuevo)
