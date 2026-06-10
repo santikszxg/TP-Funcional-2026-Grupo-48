@@ -5,9 +5,9 @@
 ;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
 ;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
 ;; IMPACTO: No destructiva
-;; ========================================================
+;; ======================================================== 
 
- #| (defun transicion (color-actual cambiar-a)
+#|(defun transicion (color-actual cambiar-a)
 				(cond  ((or (equalp color-actual cambiar-a)
 						(and (equalp color-actual 'amarillo)(equalp cambiar-a 'rojo))
 						(and (equalp color-actual 'rojo)(equalp cambiar-a 'verde))
@@ -103,10 +103,10 @@ Break 1 [3]> (defun transicion (color-actual cambiar-a)
 						(t 'accion-por-defecto)))
 
 TRANSICION
-Break 1 [3]> (transicion 'en-rojo 'verde)
+Break 1 [3]> (transicion 'en-rojo 'verde) 
 
-ACCION-POR-DEFECTO |#
-
+ACCION-POR-DEFECTO 
+|#
 
 (defun transicion (color-actual cambiar-a)
 				(cond  ((not(or(and (equalp color-actual 'en-rojo)(equalp cambiar-a 'amarillo))
