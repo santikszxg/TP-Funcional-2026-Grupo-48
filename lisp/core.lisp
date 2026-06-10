@@ -7,7 +7,7 @@
 ;; IMPACTO: No destructiva
 ;; ======================================================== 
 
-(defun transicion (color-actual cambiar-a)
+#| (defun transicion (color-actual cambiar-a)
 				(cond  ((or (equalp color-actual cambiar-a)
 						(and (equalp color-actual 'amarillo)(equalp cambiar-a 'rojo))
 						(and (equalp color-actual 'rojo)(equalp cambiar-a 'verde))
@@ -75,7 +75,8 @@ Break 6 [8]> (defun transicion (color-actual cambiar-a)
 						((equalp cambiar-a 'rojo)(list color-actual "cambiar-a-rojo"))
 						((equalp cambiar-a 'amarillo)(list color-actual "cambiar-a-amarillo"))
 						((equalp cambiar-a 'verde)(list color-actual "cambiar-a-verde"))
-						(t 'accion-por-defecto)) #|
+						(t 'accion-por-defecto)) 
+		 
 (defun transicion (color-actual cambiar-a)
 				(cond  ((not(or(and (equalp color-actual 'rojo)(equalp cambiar-a 'amarillo))
 						(and (equalp color-actual 'amarillo)(equalp cambiar-a 'verde))
@@ -135,7 +136,7 @@ Break 2 [4]> (Transicion 'en-amarillo 'verde)
 
 (EN-AMARILLO "cambiar-a-verde")
 Break 2 [4]> 
-Aseguramiento de calidad #|
+Aseguramiento de calidad 
 
 ;Requerimiento 2: Temporizador Automático;
 
@@ -208,7 +209,7 @@ Aseguramiento de calidad|#
 				((< (mod tiempo_unix 216) 96) 'amarillo)
 				(t 'verde)))
 
-;Requerimiento 3: Temporizador Automático;
+#|;Requerimiento 3: Temporizador Automático;
 ;; ========================================================
 ;; FUNCIÓN: timer
 ;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
@@ -224,7 +225,7 @@ Aseguramiento de calidad|#
 (defun auditoria(color-anterior color-nuevo)
 			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" (-(get-universal-time)2208988800) color-anterior color-nuevo))
 
-;Requerimiento 5: Planificación Temporal;
+#|;Requerimiento 5: Planificación Temporal;
 ;; ========================================================
 ;; FUNCIÓN: timer
 ;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
@@ -232,7 +233,7 @@ Aseguramiento de calidad|#
 ;; IMPACTO: No destructiva
 ;; ========================================================
 
-#| *** - LOAD: A file with name $file does not exist
+ *** - LOAD: A file with name $file does not exist
 Break 1 [3]> (defun ciclos-por-tiempo(duracionMinutos)
 			(format t "La cantidad de ciclos es: ~A%" (/ (* 60 duracionMinutos) 216)))
 
