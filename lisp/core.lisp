@@ -6,8 +6,8 @@
 ;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
 ;; IMPACTO: No destructiva
 ;; ======================================================== 
-
-#|(defun transicion (color-actual cambiar-a)
+#|
+(defun transicion (color-actual cambiar-a)
 				(cond  ((or (equalp color-actual cambiar-a)
 						(and (equalp color-actual 'amarillo)(equalp cambiar-a 'rojo))
 						(and (equalp color-actual 'rojo)(equalp cambiar-a 'verde))
