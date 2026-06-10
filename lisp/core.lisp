@@ -219,8 +219,7 @@ Aseguramiento de calidad|#
 			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" tiempo-unix color-anterior color-nuevo))
 
 (defun auditoria(color-anterior color-nuevo)
-			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" (-(get-universal-time)2208988800) color-anterior color-nuevo))
-|#
+			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" (-(get-universal-time)2208988800) color-anterior color-nuevo)) |#
 
 (defun auditoria(color-anterior color-nuevo)
 			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" (-(get-universal-time)2208988800) color-anterior color-nuevo))
@@ -264,8 +263,7 @@ NIL
 Break 1 [3]> (ciclos-por-tiempo 120)
 La cantidad de ciclos es: 33
 NIL
-Break 1 [3]> 
-|# 
+Break 1 [3]> |# 
 
 
 (defun ciclos-por-tiempo(duracionMinutos)
