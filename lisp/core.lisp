@@ -32,8 +32,8 @@
 (defun timer(tiempo_unix)
 				(cond
 				((< (mod tiempo_unix 216) 90) 'rojo)
-				((< (mod tiempo_unix 216) 96) 'amarillo)
-				(t 'verde)))
+				((< (mod tiempo_unix 216) 210) 'verde)
+				(t 'amarillo)))
 
 #|;Requerimiento 3: Temporizador Automático;
 ;; ========================================================
