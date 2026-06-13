@@ -8,9 +8,9 @@
 ;; ======================================================== 
 
 (defun transicion (color-actual cambiar-a)
-				(cond  ((not(or(and (equalp color-actual 'en-rojo)(equalp cambiar-a 'amarillo))
-						(and (equalp color-actual 'en-amarillo)(equalp cambiar-a 'verde))
-						(and (equalp color-actual 'en-verde) (equalp cambiar-a 'rojo))))
+				(cond  ((not(or(and (equalp color-actual 'en-rojo)(equalp cambiar-a 'verde))
+						(and (equalp color-actual 'en-verde)(equalp cambiar-a 'amarillo))
+						(and (equalp color-actual 'en-amarillo) (equalp cambiar-a 'rojo))))
 						(list color-actual 'accion-por-defecto))
 
 						((equalp cambiar-a 'rojo)(list color-actual "cambiar-a-rojo"))
