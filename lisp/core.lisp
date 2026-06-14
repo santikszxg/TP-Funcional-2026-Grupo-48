@@ -61,7 +61,7 @@
 			(if (and (> (calcularCiclo) 35)
 					 (< (calcularCiclo) 150))
 				(print "Esta en el rango optimo")
-				(print "No esta en el rango optimo")))
+				 "No esta en el rango optimo"))
 
 #|;Requerimiento 5: Planificación Temporal;
 ;; ========================================================
