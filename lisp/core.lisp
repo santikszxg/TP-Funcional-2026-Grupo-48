@@ -127,11 +127,11 @@
 ;; ======================================================== |#
 (defun intervalosCiclo(inicio)
 				(cond
-				((and(< inicio 90)(>(- (mod 3600 216) (- 90 inicio) 6)120)) (list (+ (- 90 inicio) (- (mod 3600 216) (- 90 inicio)120 6))120 6)) 	 ;Inicia en rojo y el verde excede 120
-				((< inicio 90)(list (- 90 inicio) 120 (- (mod 3600 216) (- 90 inicio) 120)))														 ;Inicia en rojo normal 
-				((< inicio 210)	 (list (- (mod 3600 216)(- 210 inicio) 6)(- 210 inicio) 6))															 ;Inicia en verde normal
-				((and(>= inicio 210) (> (- (mod 3600 216) (- 216 inicio)) 90))(list 90 (- (mod 3600 216) (- 216 inicio) 90) (- 216 inicio)))		 ;Inicia en amarillo y el rojo excede 9
-				(t (list(- (mod 3600 216) (- 216 inicio)) 0 (- 216 inicio)))))																		 ;Inicia en amarillo
+				((and(< inicio 90)(<(- (mod 3600 216) (- 90 inicio))120)) (list (- 90 inicio) (- (mod 3600 216) (- 90 inicio)) 0))
+				((< inicio 90)(list (+ (- 90 inicio)(- (mod 3600 216) (- 90 inicio) 120 6)) 120 6))
+				((< inicio 210)(list 90 (+ (- 210 inicio) (- (mod 3600 216) (- 210 inicio) 6 90)) 6))													 
+				((and(>= inicio 210) (> (- (mod 3600 216) (- 216 inicio)) 90))(list 90 (- (mod 3600 216) (- 216 inicio) 90) (- 216 inicio)))		 
+				(t (list(- (mod 3600 216) (- 216 inicio)) 0 (- 216 inicio)))))
 #|
 ;; ========================================================
 ;; FUNCIÓN: timer
