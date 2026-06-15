@@ -145,3 +145,29 @@
       'verde (porcentajeColor (+ (* 16 120) (cadr (intervalosCiclo (mod hora-unix 216)))))
       'amarillo (porcentajeColor (+ (* 16 6) (caddr (intervalosCiclo (mod hora-unix 216)))))))
 
+#| Iteracion 2
+;; ========================================================
+;; FUNCIÓN: timer
+;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
+;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; IMPACTO: No destructiva
+;; ======================================================== |#
+(defun informe (color-actual cambiar-a)
+ (with-open-file (stream "informe-ejecucion-semaforo.txt" :direction :output :if-exists :append)
+   (format stream "Informe de Ejecución del Sistema Semafórico~%")
+   (format stream "=========================================~%")
+   (format stream(auditoriaInforme color-actual cambiar-a))
+   (format stream "~% --- Fin del Informe --- ~%")))
+#| Iteracion 2
+;; ========================================================
+;; FUNCIÓN: timer
+;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
+;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; IMPACTO: No destructiva
+;; ======================================================== |#
+(defun auditoriaInforme (color-anterior color-nuevo)
+  (format nil "Tiempo ~A: La luz ha cambiado de ~A a ~A~%" (local-time:format-timestring nil (local-time:now) :format '(:year "-" :month "-" :day " " :hour ":" :min ":" :sec))
+(car (transicion color-anterior color-nuevo)) (cadr(transicion color-anterior color-nuevo))))
+
+
+
