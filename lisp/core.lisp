@@ -38,7 +38,8 @@
 ;; ======================================================== |#
 
 (defun auditoria(color-anterior color-nuevo)
-			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" (-(get-universal-time)2208988800) color-anterior color-nuevo))
+			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" 
+					(-(get-universal-time)2208988800) (car(transicion color-anterior color-nuevo)) (cadr(transicion color-anterior color-nuevo))))
 
 
 #|;Requerimiento 4: Análisis de ciclos semafóricos;
@@ -141,7 +142,7 @@
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 
-(defun timer(tiempo_unix)
+(defun timerIntermitencia(tiempo_unix)
 				(cond
 				((<= (mod tiempo_unix 216) 87) 'rojo)
 				((<= (mod tiempo_unix 216) 90) 'rojo-intermitente)
@@ -160,7 +161,7 @@
 ;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
-(defun intervalosCiclo(inicio)
+(defun intervalosCicloIntermitencia(inicio)
   (cond
     ((and (< inicio 87) (< (- (mod 3600 216) (- 87 inicio) 3) 117)) (list (- 87 inicio) 3 (- (mod 3600 216) (- 87 inicio) 3) 0 0 0))
     ((< inicio 87) (list (+ (- 87 inicio) (- (mod 3600 216) (- 87 inicio) 3 117 3 3 3)) 3 117 3 3 3))
@@ -179,7 +180,7 @@
 ;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
-(defun mostrarPorcentajes(hora-unix)
+(defun mostrarPorcentajesIntermitencia(hora-unix)
 			(list
       'rojo 			 	 (porcentajeColor (+ (* 16 87) (car (intervalosCiclo (mod hora-unix 216)))))
 	  'rojo-intermitente 	 (porcentajeColor (+ (* 16 3) (cadr (intervalosCiclo (mod hora-unix 216)))))
