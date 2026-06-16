@@ -282,7 +282,6 @@ Break 1 [3]> (timerIntermitencia 1781584909)
 ROJO#
 
 
-#|
 ;; ========================================================
 ;; FUNCIÓN: intervalosCicloIntermitencia
 ;; NATURALEZA: Pura (No muestra ni modifica nada)
@@ -358,7 +357,7 @@ Break 3 [5]>
 Break 3 [5]> 
 (ROJO 39.88889 ROJO-INTERMITENTE 1.4166666 VERDE 54.444443 VERDE-INTERMITENTE 1.4166666 AMARILLO 1.4166666
  AMARILLO-INTERMITENTE 1.4166666)
-Break 3 [5]> #|
+Break 3 [5]> 
 
  Iteracion 2
 ;; ========================================================
