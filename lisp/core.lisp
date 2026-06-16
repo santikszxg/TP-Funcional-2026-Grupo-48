@@ -1,9 +1,8 @@
 ; Requerimiento 1: Estados de transicion;
-
 ;; ========================================================
-;; FUNCIÓN: transcicion
+;; FUNCIÓN: transicion
 ;; NATURALEZA: Pura 
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; ESTRATEGIA: Funcion predicado (Evalua mediante el cond y equalp)
 ;; IMPACTO: No destructiva
 ;; ======================================================== 
 
@@ -15,11 +14,10 @@
 
 
 ;Requerimiento 2: Temporizador Automático;
-
 ;; ========================================================
 ;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; NATURALEZA: Pura (Dado un mismo tiempo, siempre retorna el mismo color)
+;; ESTRATEGIA: Funcion predicado ("Descompone" el tiempo y los clasifica en sus intervalos con operadores logicos)
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 
@@ -31,9 +29,9 @@
 
 #|;Requerimiento 3: Temporizador Automático;
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: auditoria
+;; NATURALEZA: impura (Imprime por pantalla)
+;; ESTRATEGIA: Uso de funciones predicado y mostrar por pantalla
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 
@@ -44,9 +42,9 @@
 
 #|;Requerimiento 4: Análisis de ciclos semafóricos;
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: calcularCiclo
+;; NATURALEZA: Pura (solo calcula)
+;; ESTRATEGIA: Operacion aritmetica
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 (defun calcularCiclo()
@@ -54,9 +52,9 @@
 
 #|
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: rangoOptimo
+;; NATURALEZA: Impura (Imprime por pantalla)
+;; ESTRATEGIA: Funcion predicado (Evaluacion condicional mediante if)
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 (defun rangoOptimo()
@@ -67,9 +65,9 @@
 
 #|;Requerimiento 5: Planificación Temporal;
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: ciclos-por-tiempo
+;; NATURALEZA: Impura (Muestra un resultado)
+;; ESTRATEGIA: Hace una operacion y muestra el valor
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 
@@ -78,9 +76,9 @@
 
 #| Requerimiento 6
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: PorcentajeColor
+;; NATURALEZA: Pura (Calcula porcentaje)
+;; ESTRATEGIA: Operacion Aritmetica
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 
@@ -88,9 +86,9 @@
 				(float(* (/ segundos 3600) 100)))
 #|
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: intervalosCiclo
+;; NATURALEZA: Pura (No muestra ni modifica nada)
+;; ESTRATEGIA: Funcion predicado (Evalua a traves del numero ingresado por parametro y ve donde arranca el ciclo)
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 (defun intervalosCiclo(inicio)
@@ -102,9 +100,9 @@
 				(t (list(- (mod 3600 216) (- 216 inicio)) 0 (- 216 inicio)))))
 #|
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: mostrarPorcentajes
+;; NATURALEZA: Pura (No imprime nada por pantalla ni modifica)
+;; ESTRATEGIA: Evaluacion directa (ejecuta las funciones creadas anteriormente)
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 (defun mostrarPorcentajes(hora-unix)
@@ -118,11 +116,11 @@
 
 #| Iteracion 1
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: transicionIntermitencia
+;; NATURALEZA: Pura 
+;; ESTRATEGIA: Funcion predicado (Evalua mediante el cond y equalp)
 ;; IMPACTO: No destructiva
-;; ======================================================== |#
+;; ========================================================  |#
 
 (defun transicionIntermitencia (color-actual cambiar-a)
 				(cond   ((and (equalp color-actual 'en-rojo-intermitente)(equalp cambiar-a 'verde))(list color-actual "cambiar-a-verde"))
@@ -132,15 +130,26 @@
 						((and (equalp color-actual 'en-verde)(equalp cambiar-a 'verde-intermitente))(list color-actual "cambiar-a-verde-intermitente"))
 						((and (equalp color-actual 'en-amarillo)(equalp cambiar-a 'amarillo-intermitente))(list color-actual "cambiar-a-amarillo-intermitente"))
 						(t (list color-actual 'accion-por-defecto))))
+#|Casos de prueba
+Break 1 [3]> (transicionIntermitencia 'en-rojo-intermitente 'verde)
 
-;Requerimiento 2: Temporizador Automático;
+(EN-ROJO-INTERMITENTE "cambiar-a-verde")
+Break 1 [3]> (transicionIntermitencia 'en-rojo 'rojo-intermitente)
+
+(EN-ROJO "cambiar-a-rojo-intermitente")
+Break 1 [3]> (transicionIntermitencia 'en-amarillo-intermitente 'rojo)
+
+(EN-AMARILLO-INTERMITENTE "cambiar-a-rojo")
+Break 1 [3]> (transicionIntermitencia 'en-azul-intermitente 'rojo)
+
+(EN-AZUL-INTERMITENTE ACCION-POR-DEFECTO)#|
 
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: timerIntermitencia
+;; NATURALEZA: Pura (Dado un mismo tiempo, siempre retorna el mismo color)
+;; ESTRATEGIA: Funcion predicado ("Descompone" el tiempo y los clasifica en sus intervalos con operadores logicos)
 ;; IMPACTO: No destructiva
-;; ======================================================== |#
+;; ========================================================|#
 
 (defun timerIntermitencia(tiempo_unix)
 				(cond
@@ -150,15 +159,30 @@
 				((<= (mod tiempo_unix 216) 210) 'verde-intermitente)
 				((<= (mod tiempo_unix 216) 213) 'amarillo)
 				(t 'amarillo-intermitente)))
+#|
+Casos de prueba:
+Break 1 [3]> (timerIntermitencia 0)
+
+ROJO
+Break 1 [3]> (timerIntermitencia 91) 
+
+VERDE
+Break 1 [3]>  (timerIntermitencia 211)
+
+AMARILLO
+Break 1 [3]> (timerIntermitencia 208)
+
+VERDE-INTERMITENTE
+Break 1 [3]> (timerIntermitencia 1781584909)
+
+ROJO#
 
 
-
-;Requerimiento 6: Temporizador Automático;
-
+#|
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: intervalosCicloIntermitencia
+;; NATURALEZA: Pura (No muestra ni modifica nada)
+;; ESTRATEGIA: Funcion predicado (Evalua a traves del numero ingresado por parametro y ve donde arranca el ciclo)
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 (defun intervalosCicloIntermitencia(inicio)
@@ -172,29 +196,28 @@
     (t (list 87 3 (- (mod 3600 216) (- 216 inicio) 87 3) 0 0 (- 216 inicio)))))
 
 
-;Requerimiento 6: Temporizador Automático;
-
+#|
 ;; ========================================================
-;; FUNCIÓN: timer
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; FUNCIÓN: mostrarPorcentajesIntermitencia
+;; NATURALEZA: Pura (No imprime nada por pantalla ni modifica)
+;; ESTRATEGIA: Evaluacion directa (ejecuta las funciones creadas anteriormente)
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 (defun mostrarPorcentajesIntermitencia(hora-unix)
 			(list
-      'rojo 			 	 (porcentajeColor (+ (* 16 87) (car (intervalosCiclo (mod hora-unix 216)))))
-	  'rojo-intermitente 	 (porcentajeColor (+ (* 16 3) (cadr (intervalosCiclo (mod hora-unix 216)))))
-      'verde 			 	 (porcentajeColor (+ (* 16 117) (caddr (intervalosCiclo (mod hora-unix 216)))))
-	  'verde-intermitente	 (porcentajeColor (+ (* 16 3) (cadddr (intervalosCiclo (mod hora-unix 216)))))
-      'amarillo 		 	 (porcentajeColor (+ (* 16 3) (car(cddddr (intervalosCiclo (mod hora-unix 216))))))
-	  'amarillo-intermitente (porcentajeColor (+ (* 16 3) (cadr(cddddr (intervalosCiclo (mod hora-unix 216))))))))
+      'rojo 			 	 (porcentajeColor (+ (* 16 87) (car (intervalosCicloIntermitencia (mod hora-unix 216)))))
+	  'rojo-intermitente 	 (porcentajeColor (+ (* 16 3) (cadr (intervalosCicloIntermitencia (mod hora-unix 216)))))
+      'verde 			 	 (porcentajeColor (+ (* 16 117) (caddr (intervalosCicloIntermitencia (mod hora-unix 216)))))
+	  'verde-intermitente	 (porcentajeColor (+ (* 16 3) (cadddr (intervalosCicloIntermitencia (mod hora-unix 216)))))
+      'amarillo 		 	 (porcentajeColor (+ (* 16 3) (car(cddddr (intervalosCicloIntermitencia (mod hora-unix 216))))))
+	  'amarillo-intermitente (porcentajeColor (+ (* 16 3) (cadr(cddddr (intervalosCicloIntermitencia(mod hora-unix 216))))))))
 
 
 #| Iteracion 2
 ;; ========================================================
 ;; FUNCIÓN: informe
-;; NATURALEZA: Pura (Dado un timestamp, siempre retorna el mismo color)
-;; ESTRATEGIA: Orden Superior (Implementada mediante mapcar y reduce)
+;; NATURALEZA: Impura (Modifica un archivo)
+;; ESTRATEGIA: Registro de control
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 (defun informe (color-actual cambiar-a)
@@ -206,8 +229,8 @@
 #| Iteracion 2
 ;; ========================================================
 ;; FUNCIÓN: auditoriaInforme
-;; NATURALEZA: impura 
-;; ESTRATEGIA: ???
+;; NATURALEZA: Pura (format nil retorna un string, no imprime)
+;; ESTRATEGIA: Uso de funciones predicado
 ;; IMPACTO: No destructiva
 ;; ======================================================== |#
 (defun auditoriaInforme (color-anterior color-nuevo)
