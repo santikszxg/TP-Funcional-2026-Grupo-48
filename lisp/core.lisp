@@ -11,7 +11,19 @@
 						((and (equalp color-actual 'en-verde)(equalp cambiar-a 'amarillo))(list color-actual "cambiar-a-amarillo"))
 						((and (equalp color-actual 'en-amarillo) (equalp cambiar-a 'rojo))(list color-actual "cambiar-a-rojo"))
 						( t(list color-actual 'accion-por-defecto))))
+#|
+Casos de prueba
+TRANSICION
+Break 1 [3]> (transicion 'en-verde 'amarillo)
 
+(EN-VERDE "cambiar-a-amarillo")
+Break 1 [3]> (transicion 'en-verde 'rojo)
+
+(EN-VERDE ACCION-POR-DEFECTO)
+Break 1 [3]> (transicion 'en-amarillo 'rojo)
+
+(EN-AMARILLO "cambiar-a-rojo")
+Break 1 [3]>  
 
 ;Requerimiento 2: Temporizador Automático;
 ;; ========================================================
@@ -23,11 +35,34 @@
 
 (defun timer(tiempo_unix)
 				(cond
-				((< (mod tiempo_unix 216) 90) 'rojo)
-				((< (mod tiempo_unix 216) 210) 'verde)
+				((<= (mod tiempo_unix 216) 90) 'rojo)
+				((<= (mod tiempo_unix 216) 210) 'verde)
 				(t 'amarillo)))
+#| Casos de prueba
+Break 2 [4]> (timer 500)
+(timer 0)
+(timer -1)
+(timer 3)
+(timer 6)
+(timer 210)
+(timer 209)
 
-#|;Requerimiento 3: Temporizador Automático;
+ROJO
+Break 2 [4]> 
+ROJO
+Break 2 [4]> 
+AMARILLO
+Break 2 [4]> 
+ROJO
+Break 2 [4]> 
+ROJO
+Break 2 [4]> 
+VERDE
+Break 2 [4]> 
+VERDE
+Break 2 [4]>  #|
+
+;Requerimiento 3: Temporizador Automático;
 ;; ========================================================
 ;; FUNCIÓN: auditoria
 ;; NATURALEZA: impura (Imprime por pantalla)
@@ -38,9 +73,15 @@
 (defun auditoria(color-anterior color-nuevo)
 			(format t "Tiempo ~A: La luz ha cambiado de ~A a ~A%" 
 					(-(get-universal-time)2208988800) (car(transicion color-anterior color-nuevo)) (cadr(transicion color-anterior color-nuevo))))
+#| Casos de prueba
+(auditoria 'en-rojo 'verde)
+Tiempo 1781594993: La luz ha cambiado de EN-ROJO a cambiar-a-verde%
+NIL
+Break 1 [3]> (auditoria 'en-verde 'amarillo)
+Tiempo 1781595014: La luz ha cambiado de EN-VERDE a cambiar-a-amarillo%
+NIL 
 
-
-#|;Requerimiento 4: Análisis de ciclos semafóricos;
+;Requerimiento 4: Análisis de ciclos semafóricos;
 ;; ========================================================
 ;; FUNCIÓN: calcularCiclo
 ;; NATURALEZA: Pura (solo calcula)
@@ -62,8 +103,13 @@
 					 (< (calcularCiclo) 150))
 				(print "Esta en el rango optimo")
 				 "No esta en el rango optimo"))
+#| Casos de prueba
+(rangoOptimo)
 
-#|;Requerimiento 5: Planificación Temporal;
+"No esta en el rango optimo" 
+
+
+;Requerimiento 5: Planificación Temporal;
 ;; ========================================================
 ;; FUNCIÓN: ciclos-por-tiempo
 ;; NATURALEZA: Impura (Muestra un resultado)
@@ -72,9 +118,26 @@
 ;; ======================================================== |#
 
 (defun ciclos-por-tiempo(duracionMinutos)
-			(format t "La cantidad de ciclos es: ~A%" (truncate(/ (* 60 duracionMinutos) 216))))
+			(format t "La cantidad de ciclos es: ~A" (truncate(/ (* 60 duracionMinutos) 216))))
+#| Casos de prueba
 
-#| Requerimiento 6
+Break 1 [3]> (ciclos-por-tiempo 10)
+La cantidad de ciclos es: 2
+NIL
+Break 1 [3]> (ciclos-por-tiempo 15)
+La cantidad de ciclos es: 4
+NIL
+Break 1 [3]> (ciclos-por-tiempo 1000)
+La cantidad de ciclos es: 277
+NIL
+Break 1 [3]> (ciclos-por-tiempo -1)
+La cantidad de ciclos es: 0
+NIL
+
+
+
+
+ Requerimiento 6
 ;; ========================================================
 ;; FUNCIÓN: PorcentajeColor
 ;; NATURALEZA: Pura (Calcula porcentaje)
@@ -95,10 +158,40 @@
 				(cond
 				((and(< inicio 90)(<(- (mod 3600 216) (- 90 inicio))120)) (list (- 90 inicio) (- (mod 3600 216) (- 90 inicio)) 0))
 				((< inicio 90)(list (+ (- 90 inicio)(- (mod 3600 216) (- 90 inicio) 120 6)) 120 6))
-				((< inicio 210)(list 90 (+ (- 210 inicio) (- (mod 3600 216) (- 210 inicio) 6 90)) 6))													 
+				((< inicio 210)(list (- (mod 3600 216) (+ (- 210 inicio) 6)) (- 210 inicio) 6))												 
 				((and(>= inicio 210) (> (- (mod 3600 216) (- 216 inicio)) 90))(list 90 (- (mod 3600 216) (- 216 inicio) 90) (- 216 inicio)))		 
 				(t (list(- (mod 3600 216) (- 216 inicio)) 0 (- 216 inicio)))))
-#|
+#|Casos de prueba
+(intervalosCiclo1 0)
+(intervalosCiclo1 52)
+(intervalosCiclo1 85)
+(intervalosCiclo1 90)
+(intervalosCiclo1 100)
+(intervalosCiclo1 150)
+(intervalosCiclo1 210)
+(intervalosCiclo1 212)
+(intervalosCiclo1 215)
+
+(90 54 0)
+Break 2 [4]> 
+(38 106 0)
+Break 2 [4]> 
+(18 120 6)
+Break 2 [4]> 
+(18 120 6)
+Break 2 [4]> 
+(28 110 6)
+Break 2 [4]> 
+(78 60 6)
+Break 2 [4]> 
+(90 48 6)
+Break 2 [4]> 
+(90 50 4)
+Break 2 [4]> 
+(90 53 1) 
+
+
+
 ;; ========================================================
 ;; FUNCIÓN: mostrarPorcentajes
 ;; NATURALEZA: Pura (No imprime nada por pantalla ni modifica)
@@ -110,11 +203,22 @@
       'rojo (porcentajeColor (+ (* 16 90) (car (intervalosCiclo (mod hora-unix 216)))))
       'verde (porcentajeColor (+ (* 16 120) (cadr (intervalosCiclo (mod hora-unix 216)))))
       'amarillo (porcentajeColor (+ (* 16 6) (caddr (intervalosCiclo (mod hora-unix 216)))))))
+#| Casos de prueba
+(mostrarPorcentajes 1781639616) (mostrarPorcentajes 1781639701) (mostrarPorcentajes 1781639716) (mostrarPorcentajes 1781639826) (mostrarPorcentajes 1781639831)
+
+(ROJO 41.333332 VERDE 55.833332 AMARILLO 2.8333333)
+Break 2 [4]> 
+(ROJO 43.694443 VERDE 53.47222 AMARILLO 2.8333333)
+Break 2 [4]> 
+(ROJO 42.38889 VERDE 54.944443 AMARILLO 2.6666667)
+Break 2 [4]> 
+(ROJO 41.166668 VERDE 56.0 AMARILLO 2.8333333)
+Break 2 [4]> 
+(ROJO 41.305557 VERDE 55.86111 AMARILLO 2.8333333)
 
 
 
-
-#| Iteracion 1
+Iteracion 1
 ;; ========================================================
 ;; FUNCIÓN: transicionIntermitencia
 ;; NATURALEZA: Pura 
@@ -142,14 +246,14 @@ Break 1 [3]> (transicionIntermitencia 'en-amarillo-intermitente 'rojo)
 (EN-AMARILLO-INTERMITENTE "cambiar-a-rojo")
 Break 1 [3]> (transicionIntermitencia 'en-azul-intermitente 'rojo)
 
-(EN-AZUL-INTERMITENTE ACCION-POR-DEFECTO)#|
+(EN-AZUL-INTERMITENTE ACCION-POR-DEFECTO)
 
 ;; ========================================================
 ;; FUNCIÓN: timerIntermitencia
 ;; NATURALEZA: Pura (Dado un mismo tiempo, siempre retorna el mismo color)
 ;; ESTRATEGIA: Funcion predicado ("Descompone" el tiempo y los clasifica en sus intervalos con operadores logicos)
 ;; IMPACTO: No destructiva
-;; ========================================================|#
+;; ========================================================|#| 
 
 (defun timerIntermitencia(tiempo_unix)
 				(cond
@@ -190,13 +294,40 @@ ROJO#
     ((and (< inicio 87) (< (- (mod 3600 216) (- 87 inicio) 3) 117)) (list (- 87 inicio) 3 (- (mod 3600 216) (- 87 inicio) 3) 0 0 0))
     ((< inicio 87) (list (+ (- 87 inicio) (- (mod 3600 216) (- 87 inicio) 3 117 3 3 3)) 3 117 3 3 3))
     ((< inicio 90) (list (- (mod 3600 216) (- 90 inicio) 117 3 3 3) (- 90 inicio) 117 3 3 3))
-    ((< inicio 207) (list 87 3 (+ (- 207 inicio) (- (mod 3600 216) (- 207 inicio) 3 3 3 87 3)) 3 3 3))	
-    ((< inicio 210) (list 87 3 (- (mod 3600 216) (- 210 inicio) 3 3 87 3) (- 210 inicio) 3 3))
-    ((< inicio 213) (list 87 3 (- (mod 3600 216) (- 213 inicio) 3 87 3) 0 (- 213 inicio) 3))	 
-    (t (list 87 3 (- (mod 3600 216) (- 216 inicio) 87 3) 0 0 (- 216 inicio)))))
+    ((< inicio 207) (list (- (mod 3600 216) (+ (- 207 inicio) 3 3 3 3)) 3 (- 207 inicio) 3 3 3))
+    ((< inicio 210) (list 87 3 (- (mod 3600 216) (+ (- 210 inicio) 3 3 87 3))(- 210 inicio) 3 3))
+    ((< inicio 213) (list 87 3 (- (mod 3600 216) (+ (- 213 inicio) 3 87 3)) 3 (- 213 inicio) 3))	 
+    (t (list 87 3 (- (mod 3600 216) (+ (- 216 inicio) 87 3)) 3 3 (- 216 inicio)))))
+#|Casos de prueba
+(intervalosCicloIntermitencia 0)
+(intervalosCicloIntermitencia 52)
+(intervalosCicloIntermitencia 85)
+(intervalosCicloIntermitencia 90)
+(intervalosCicloIntermitencia 100)
+(intervalosCicloIntermitencia 150)
+(intervalosCicloIntermitencia 210)
+(intervalosCicloIntermitencia 212)
+(intervalosCicloIntermitencia 215)
 
 
-#|
+(87 3 54 0 0 0)
+Break 2 [4]> 
+(35 3 106 0 0 0)
+Break 2 [4]> 
+(15 3 117 3 3 3)
+Break 2 [4]> 
+(15 3 117 3 3 3)
+Break 2 [4]> 
+(25 3 107 3 3 3)
+Break 2 [4]> 
+(75 3 57 3 3 3)
+Break 2 [4]> 
+(87 3 48 3 3 3)
+Break 2 [4]> 
+(87 3 50 3 1 3)
+Break 2 [4]> 
+(87 3 53 3 3 1)
+
 ;; ========================================================
 ;; FUNCIÓN: mostrarPorcentajesIntermitencia
 ;; NATURALEZA: Pura (No imprime nada por pantalla ni modifica)
@@ -211,7 +342,23 @@ ROJO#
 	  'verde-intermitente	 (porcentajeColor (+ (* 16 3) (cadddr (intervalosCicloIntermitencia (mod hora-unix 216)))))
       'amarillo 		 	 (porcentajeColor (+ (* 16 3) (car(cddddr (intervalosCicloIntermitencia (mod hora-unix 216))))))
 	  'amarillo-intermitente (porcentajeColor (+ (* 16 3) (cadr(cddddr (intervalosCicloIntermitencia(mod hora-unix 216))))))))
+#| (mostrarPorcentajesIntermitencia 1781639616) (mostrarPorcentajesIntermitencia 1781639701) (mostrarPorcentajesIntermitencia 1781639716) (mostrarPorcentajesIntermitencia 1781639826) (mostrarPorcentajesIntermitencia 1781639831)
 
+(ROJO 39.916668 ROJO-INTERMITENTE 1.4166666 VERDE 54.416668 VERDE-INTERMITENTE 1.4166666 AMARILLO 1.4166666
+ AMARILLO-INTERMITENTE 1.4166666)
+Break 3 [5]> 
+(ROJO 42.27778 ROJO-INTERMITENTE 1.4166666 VERDE 52.055557 VERDE-INTERMITENTE 1.4166666 AMARILLO 1.4166666
+ AMARILLO-INTERMITENTE 1.4166666)
+Break 3 [5]> 
+(ROJO 40.97222 ROJO-INTERMITENTE 1.4166666 VERDE 53.61111 VERDE-INTERMITENTE 1.3333334 AMARILLO 1.3333334
+ AMARILLO-INTERMITENTE 1.3333334)
+Break 3 [5]> 
+(ROJO 39.75 ROJO-INTERMITENTE 1.4166666 VERDE 54.583332 VERDE-INTERMITENTE 1.4166666 AMARILLO 1.4166666 AMARILLO-INTERMITENTE
+ 1.4166666)
+Break 3 [5]> 
+(ROJO 39.88889 ROJO-INTERMITENTE 1.4166666 VERDE 54.444443 VERDE-INTERMITENTE 1.4166666 AMARILLO 1.4166666
+ AMARILLO-INTERMITENTE 1.4166666)
+Break 3 [5]> #|
 
 #| Iteracion 2
 ;; ========================================================
