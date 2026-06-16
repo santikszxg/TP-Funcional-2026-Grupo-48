@@ -60,7 +60,7 @@ Break 2 [4]>
 VERDE
 Break 2 [4]> 
 VERDE
-Break 2 [4]>  #|
+Break 2 [4]>  
 
 ;Requerimiento 3: Temporizador Automático;
 ;; ========================================================
@@ -253,7 +253,7 @@ Break 1 [3]> (transicionIntermitencia 'en-azul-intermitente 'rojo)
 ;; NATURALEZA: Pura (Dado un mismo tiempo, siempre retorna el mismo color)
 ;; ESTRATEGIA: Funcion predicado ("Descompone" el tiempo y los clasifica en sus intervalos con operadores logicos)
 ;; IMPACTO: No destructiva
-;; ========================================================|#| 
+;; ========================================================|# 
 
 (defun timerIntermitencia(tiempo_unix)
 				(cond
@@ -360,7 +360,7 @@ Break 3 [5]>
  AMARILLO-INTERMITENTE 1.4166666)
 Break 3 [5]> #|
 
-#| Iteracion 2
+ Iteracion 2
 ;; ========================================================
 ;; FUNCIÓN: informe
 ;; NATURALEZA: Impura (Modifica un archivo)
