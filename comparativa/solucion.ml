@@ -31,7 +31,7 @@ val prueba4 : color * string = (EnAmarillo, "cambiar a rojo")
 ========================================================
    FUNCIÓN: timer
    NATURALEZA: Pura 
-   ESTRATEGIA: Función predicado (Evalúa condiciones lógicas con estructuras if/else)
+   ESTRATEGIA: Clasificación por rangos mediante condicionales.
    IMPACTO: No destructiva
    ======================================================== *)
 
@@ -87,7 +87,7 @@ let prueba7 = transicion EnAmarillo  AmarilloIntermitente
 ========================================================
    FUNCIÓN: timer
    NATURALEZA: Pura 
-   ESTRATEGIA: Función predicado (Evalúa condiciones lógicas con estructuras if/else)
+   ESTRATEGIA: Clasificación por rangos mediante condicionales.
    IMPACTO: No destructiva
    ======================================================== *)
 let timer tiempo_unix =
