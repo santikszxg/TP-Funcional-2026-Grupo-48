@@ -104,7 +104,7 @@ NIL
 				(print "Esta en el rango optimo")
 				 "No esta en el rango optimo"))
 #| Casos de prueba
-(rangoOptimo)
+(recomendacion-ciclo)
 
 "No esta en el rango optimo" 
 
@@ -139,7 +139,7 @@ NIL
 
  Requerimiento 6
 ;; ========================================================
-;; FUNCIÓN: Porcentaje-color
+;; FUNCIÓN: porcentaje-color
 ;; NATURALEZA: Pura (Calcula porcentaje)
 ;; ESTRATEGIA: Operacion Aritmetica
 ;; IMPACTO: No destructiva
